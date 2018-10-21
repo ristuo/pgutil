@@ -44,8 +44,8 @@ def write_to_table(conn, table_name, logger, dict_list):
     return i
 
 
-def get_as_df(qs):
-    conn = get_db_connection()
+def get_as_df(dbname, qs):
+    conn = get_db_connection(dbname)
     try:
         cursor = conn.cursor()
         cursor.execute(qs)
