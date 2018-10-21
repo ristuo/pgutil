@@ -44,8 +44,11 @@ def write_to_table(conn, table_name, logger, dict_list):
     return i
 
 
-def get_as_df(dbname, qs):
-    conn = get_db_connection(dbname)
+def get_as_df(dbname, qs, conn=None):
+    should_close = False
+    if conn is None:
+        should_close = True
+        conn = get_db_connection(dbname)
     try:
         cursor = conn.cursor()
         cursor.execute(qs)
@@ -54,6 +57,7 @@ def get_as_df(dbname, qs):
     finally:
         if cursor is not None:
             cursor.close()
-        conn.close()
+        if should_close:
+            conn.close()
     return pd.DataFrame(res, columns=colnames)
 
