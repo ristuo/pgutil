@@ -1,1 +1,1 @@
-#Convenience functions for talking with postgresql db
+# Convenience functions for talking with postgresql db
