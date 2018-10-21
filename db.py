@@ -1,4 +1,5 @@
 import os
+import pandas as pd
 import psycopg2
 from psycopg2.extensions import AsIs
 def get_db_connection(database):
@@ -41,3 +42,18 @@ def write_to_table(conn, table_name, logger, dict_list):
     finally:
         cursor.close()
     return i
+
+
+def get_as_df(qs):
+    conn = get_db_connection()
+    try:
+        cursor = conn.cursor()
+        cursor.execute(qs)
+        res = cursor.fetchall()
+        colnames = [desc[0] for desc in cursor.description]
+    finally:
+        if cursor is not None:
+            cursor.close()
+        conn.close()
+    return pd.DataFrame(res, columns=colnames)
+
