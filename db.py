@@ -26,10 +26,10 @@ def write_to_table(conn, table_name, logger, dict_list):
     if len(dict_list) > 500:
         logger.info('Inserting ' + str(len(dict_list)) + ' rows may take a while :(')
     cursor = conn.cursor()
-    i = 1
+    i = 0
     try:
         for row in dict_list:
-            logger.debug('Preparing insert statement for row ' + str(i))
+            logger.debug('Preparing insert statement for row ' + str(i + 1))
             i += 1
             columns = row.keys()
             values = [row[k] for k in columns]
