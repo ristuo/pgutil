@@ -2,6 +2,8 @@ import os
 import pandas as pd
 import psycopg2
 from psycopg2.extensions import AsIs
+
+
 def get_db_connection(database):
     host = os.environ['DB_HOST']
     user = os.environ['DB_USER']
@@ -15,6 +17,7 @@ def get_db_connection(database):
         password=password
     )
     return conn
+
 
 def write_to_table(conn, table_name, logger, dict_list):
     if len(dict_list) == 0:
